@@ -1,0 +1,909 @@
+{% load static %}
+
+<!-- <style>
+    .offcanvas.custom-width-80 {
+        width: 80% !important;
+        max-width: unset !important;
+    }
+</style> -->
+
+<!-- Add New Deals -->
+<div class="offcanvas offcanvas-end offcanvas-large" tabindex="-1" id="offcanvas_add">
+<!-- <div class="offcanvas offcanvas-end custom-width-80" tabindex="-1" id="offcanvas_add"> -->
+    <div class="offcanvas-header border-bottom">
+        <h5 class="fw-semibold">Add New Deals</h5>
+        <button type="button"
+            class="btn-close custom-btn-close border p-1 me-0 d-flex align-items-center justify-content-center rounded-circle"
+            data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="ti ti-x"></i>
+        </button>
+    </div>
+    <div class="offcanvas-body">
+        <form method="POST" action="{% url 'deals' %}" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Deal Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="deal_name" required>
+                        <div class="invalid-feedback">Please provide a deal name.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Pipeline <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="pipeline" required>
+                        <div class="invalid-feedback">Please provide a pipeline.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Deal Value <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="deal_value" required>
+                        <div class="invalid-feedback">Please provide a deal value.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Currency<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="currency" required>
+                        <div class="invalid-feedback">Please provide a currency.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Period <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="period" required>
+                        <div class="invalid-feedback">Please provide a period.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Period Value <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="period_value" required>
+                        <div class="invalid-feedback">Please provide a period value.</div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Contact Id <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="contact_id">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Project Id <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="project_id">
+                    </div>
+                </div> -->
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Due Date<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" name="due_date" required>
+                        <div class="invalid-feedback">Please provide a due date.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Expected Closing Date<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" name="expected_closingdate" required>
+                        <div class="invalid-feedback">Please provide a expected closing date.</div>
+                    </div>
+                </div>
+                <!-- <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Assignee ID<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control">
+                    </div>
+                </div> -->
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Follow Up Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" name="follow_up_date" required>
+                        <div class="invalid-feedback">Please provide a follow up date.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Source<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="source" required>
+                        <div class="invalid-feedback">Please provide a source.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Tags<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="tags" required>
+                        <div class="invalid-feedback">Please provide a tags.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Priority<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="priority" required>
+                        <div class="invalid-feedback">Please provide a priority.</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Description<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="description" required>
+                        <div class="invalid-feedback">Please provide a description.</div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="form-check form-check-md d-flex align-items-center">
+                        <input class="form-check-input" type="checkbox" name="status" id="checkebox-md" checked />
+                        <label class="form-check-label" for="checkebox-md">is Active</label>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label class="col-form-label">Deal Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <label class="col-form-label">Pipeine <span class="text-danger">*</span></label>
+                            <a href="" class="label-add " data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvas_pipeline">
+                                <i class="ti ti-square-rounded-plus"></i>
+                                Add New
+                            </a>
+                        </div>
+                        <select class="select2">
+                            <option>Choose</option>
+                            <option>Sales</option>
+                            <option>Marketing</option>
+                            <option>Calls</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Status <span class="text-danger">*</span></label>
+                        <select class="select2">
+                            <option>Choose</option>
+                            <option>Open</option>
+                            <option>Lost</option>
+                            <option>Won</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Deal Value<span class="text-danger"> *</span></label>
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Currency <span class="text-danger">*</span></label>
+                        <select class="select">
+                            <option>Select</option>
+                            <option>$</option>
+                            <option>€</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Period <span class="text-danger">*</span></label>
+                        <select class="select">
+                            <option>Choose</option>
+                            <option>Days</option>
+                            <option>Month</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Period Value <span class="text-danger">*</span></label>
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label class="col-form-label">Contact <span class="text-danger">*</span></label>
+                        <select class="multiple-img" multiple="multiple">
+                            <option data-image="{% static 'assets/img/profiles/avatar-19.jpg' %}" selected>Darlee Robertson</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-20.jpg' %}">Sharon Roy</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-21.jpg' %}">Vaughan</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-23.jpg' %}">Jessica</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-16.jpg' %}">Carol Thomas</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Project <span class="text-danger">*</span></label>
+                        <select class="select" multiple="multiple">
+                            <option selected>Devops Design</option>
+                            <option selected>MargrateDesign</option>
+                            <option selected>UI for Chat</option>
+                            <option>Web Chat</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Due Date <span class="text-danger">*</span></label>
+                        <div class="icon-form">
+                            <span class="form-icon"><i class="ti ti-calendar-check"></i></span>
+                            <input type="text" class="form-control datetimepicker" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Expected Closing Date <span
+                                class="text-danger">*</span></label>
+                        <div class="icon-form">
+                            <span class="form-icon"><i class="ti ti-calendar-check"></i></span>
+                            <input type="text" class="form-control datetimepicker" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label class="col-form-label">Assignee <span class="text-danger">*</span></label>
+                        <select class="multiple-img" multiple="multiple">
+                            <option data-image="{% static 'assets/img/profiles/avatar-19.jpg' %}">Darlee Robertson</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-20.jpg' %}" selected>Sharon Roy</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-21.jpg' %}">Vaughan</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-23.jpg' %}">Jessica</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-16.jpg' %}">Carol Thomas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Follow Up Date <span class="text-danger">*</span></label>
+                        <div class="icon-form">
+                            <span class="form-icon"><i class="ti ti-calendar-check"></i></span>
+                            <input type="text" class="form-control datetimepicker" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Source <span class="text-danger">*</span></label>
+                        <select class="select">
+                            <option>Select</option>
+                            <option>Google</option>
+                            <option>Social Media</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Tags <span class="text-danger">*</span></label>
+                        <input class="input-tags form-control" type="text" data-role="tagsinput" name="Label"
+                            value="Collab, Rated">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Priority <span class="text-danger">*</span></label>
+                        <select class="select">
+                            <option>Select</option>
+                            <option>Highy</option>
+                            <option>Low</option>
+                            <option>Medium</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="mb-3">
+                        <label class="col-form-label">Description <span class="text-danger">*</span></label>
+                        <div class="summernote"></div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="d-flex align-items-center justify-content-end">
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-light me-2">Cancel</button>
+                <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#create_success">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /Add New Deals -->
+
+<!-- Edit Deals -->
+<div class="offcanvas offcanvas-end offcanvas-large" tabindex="-1" id="offcanvas_edit">
+    <div class="offcanvas-header border-bottom">
+        <h5 class="fw-semibold">Edit Deals</h5>
+        <button type="button"
+            class="btn-close custom-btn-close border p-1 me-0 d-flex align-items-center justify-content-center rounded-circle"
+            data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="ti ti-x"></i>
+        </button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- <div class="row">
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label class="col-form-label">Deal Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" value="Collins">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <label class="col-form-label">Pipeine <span class="text-danger">*</span></label>
+                            <a href="" class="label-add " data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvas_pipeline">
+                                <i class="ti ti-square-rounded-plus"></i>
+                                Add New
+                            </a>
+                        </div>
+                        <select class="select2">
+                            <option>Choose</option>
+                            <option>Sales</option>
+                            <option>Marketing</option>
+                            <option>Calls</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Status <span class="text-danger">*</span></label>
+                        <select class="select2">
+                            <option>Choose</option>
+                            <option>Open</option>
+                            <option>Lost</option>
+                            <option>Won</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Deal Value<span class="text-danger"> *</span></label>
+                        <input class="form-control" type="text" value="$04,51,000">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Currency <span class="text-danger">*</span></label>
+                        <select class="select">
+                            <option>Select</option>
+                            <option>$</option>
+                            <option>€</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Period <span class="text-danger">*</span></label>
+                        <select class="select">
+                            <option>Choose</option>
+                            <option>Days</option>
+                            <option>Month</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Period Value <span class="text-danger">*</span></label>
+                        <input class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label class="col-form-label">Contact <span class="text-danger">*</span></label>
+                        <select class="multiple-img" multiple="multiple">
+                            <option data-image="{% static 'assets/img/profiles/avatar-19.jpg' %}" selected>Darlee Robertson</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-20.jpg' %}">Sharon Roy</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-21.jpg' %}">Vaughan</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-23.jpg' %}">Jessica</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-16.jpg' %}">Carol Thomas</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="col-form-label">Project <span class="text-danger">*</span></label>
+                        <select class="select" multiple="multiple">
+                            <option selected>Devops Design</option>
+                            <option selected>MargrateDesign</option>
+                            <option selected>UI for Chat</option>
+                            <option>Web Chat</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Due Date <span class="text-danger">*</span></label>
+                        <div class="icon-form">
+                            <span class="form-icon"><i class="ti ti-calendar-check"></i></span>
+                            <input type="text" class="form-control datetimepicker" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Expected Closing Date <span
+                                class="text-danger">*</span></label>
+                        <div class="icon-form">
+                            <span class="form-icon"><i class="ti ti-calendar-check"></i></span>
+                            <input type="text" class="form-control datetimepicker" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="mb-3">
+                        <label class="col-form-label">Assignee <span class="text-danger">*</span></label>
+                        <select class="multiple-img" multiple="multiple">
+                            <option data-image="{% static 'assets/img/profiles/avatar-19.jpg' %}">Darlee Robertson</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-20.jpg' %}" selected>Sharon Roy</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-21.jpg' %}">Vaughan</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-23.jpg' %}">Jessica</option>
+                            <option data-image="{% static 'assets/img/profiles/avatar-16.jpg' %}">Carol Thomas</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Follow Up Date <span class="text-danger">*</span></label>
+                        <div class="icon-form">
+                            <span class="form-icon"><i class="ti ti-calendar-check"></i></span>
+                            <input type="text" class="form-control datetimepicker" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Source <span class="text-danger">*</span></label>
+                        <select class="select">
+                            <option>Select</option>
+                            <option>Google</option>
+                            <option>Social Media</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Tags <span class="text-danger">*</span></label>
+                        <input class="input-tags form-control" type="text" data-role="tagsinput" name="Label"
+                            value="Collab, Rated">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Priority <span class="text-danger">*</span></label>
+                        <select class="select">
+                            <option>Select</option>
+                            <option>Highy</option>
+                            <option>Low</option>
+                            <option>Medium</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="mb-3">
+                        <label class="col-form-label">Description <span class="text-danger">*</span></label>
+                        <div class="summernote"></div>
+                    </div>
+                </div>
+            </div> -->
+            <form method="post" action="{% url 'deals' %}">
+                {% csrf_token %}
+                <input type="hidden" id="deal_id" name="deal_id">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Deal Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="deal_name" id="edit_deal_name">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Pipeline <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="pipeline"  id="edit_pipeline">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Deal Value <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="deal_value" id="edit_deal_value">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Currency<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="currency" id="edit_currency">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Period <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="period" id="edit_period">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Period Value <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="period_value" id="edit_period_value">
+                    </div>
+                </div>
+                <!-- <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="col-form-label">Contact Id <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="contact_id">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="col-form-label">Project Id <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="project_id">
+                        </div>
+                    </div> -->
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Due Date<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" name="due_date" id="edit_due_date">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Expected Closing Date<span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" name="expected_closingdate" id="edit_expected_closingdate">
+                    </div>
+                </div>
+                <!-- <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="col-form-label">Assignee ID<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div> -->
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Follow Up Date <span class="text-danger">*</span></label>
+                        <input type="date" class="form-control" name="follow_up_date" id="edit_follow_up_date">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Source<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="source"  id="edit_source">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Tags<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="tags" id="edit_tags">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Priority<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="priority" id="edit_priority">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Description<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="description" id="edit_description">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="form-check form-check-md d-flex align-items-center">
+                        <input class="form-check-input" type="checkbox" name="status" id="edit_status" />
+                        <label class="form-check-label" for="edit_status">is Active</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-end">
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-light me-2">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+
+            </div>
+        </form>
+    </div>
+
+</div>
+<!-- /Edit Deals -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".dropdown-item").forEach(item => {
+        item.addEventListener("click", function () {
+            const dealId = this.getAttribute("data-deal-id");
+
+            if (!dealId) {
+                alert("Error: No deal ID found!");
+                return;
+            }
+
+            fetch(`/get_deals/${dealId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById("edit_deal_name").value = data.deal_data.deal_name;
+                        document.getElementById("edit_pipeline").value = data.deal_data.pipeline;
+                        document.getElementById("edit_status").checked = data.deal_data.status === "Y";
+                        document.getElementById("edit_deal_value").value = data.deal_data.deal_value;
+                        document.getElementById("edit_currency").value = data.deal_data.currency;
+                        document.getElementById("edit_period").value = data.deal_data.period;
+                        document.getElementById("edit_period_value").value = data.deal_data.period_value;
+                        document.getElementById("edit_due_date").value = data.deal_data.due_date;
+                        document.getElementById("edit_expected_closingdate").value = data.deal_data.expected_closingdate;
+                        document.getElementById("edit_follow_up_date").value = data.deal_data.follow_up_date;
+                        document.getElementById("edit_source").value = data.deal_data.source;
+                        document.getElementById("edit_tags").value = data.deal_data.tags;
+                        document.getElementById("edit_priority").value = data.deal_data.priority;
+                        document.getElementById("edit_description").value = data.deal_data.description;
+                        document.getElementById("deal_id").value = dealId;
+                    } else {
+                        alert("Error fetching deal data: " + data.error);
+                    }
+                });
+        });
+    });
+});
+
+
+
+</script>
+
+<!-- Delete Deal -->
+<div class="modal fade" id="delete_deal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="avatar avatar-xl bg-danger-light rounded-circle mb-3">
+                        <i class="ti ti-trash-x fs-36 text-danger"></i>
+                    </div>
+                    <h4 class="mb-2">Remove Deal?</h4>
+                    <p class="mb-0">Are you sure you want to remove <br> the selected deal?</p>
+                    <div class="d-flex align-items-center justify-content-center mt-4">
+                        <button class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</button>
+                        <a id="confirm-delete" href="#" class="btn btn-danger">Yes, Delete it</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Deal -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const deleteButtons = document.querySelectorAll('.delete-contact-btn');
+        const confirmDelete = document.getElementById('confirm-delete');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const dealId = button.getAttribute('data-deal-id');
+                confirmDelete.setAttribute('href', `/delete_deals/${dealId}/`);
+            });
+        });
+    });
+</script>
+
+<!-- Create Deal -->
+<!-- <div class="modal custom-modal fade" id="create_success" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 m-0 justify-content-end">
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ti ti-x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="success-message text-center">
+                    <div class="success-popup-icon bg-light-blue">
+                        <i class="ti ti-medal"></i>
+                    </div>
+                    <h3>Deal Created Successfully!!!</h3>
+                    <p>View the details of deal, created</p>
+                    <div class="col-lg-12 text-center modal-btn">
+                        <a href="#" class="btn btn-light" data-bs-dismiss="modal">Cancel</a>
+                        <a href="{% url 'deals_details' %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- /Create Deal -->
+
+<!-- Add New Pipeline -->
+<div class="offcanvas offcanvas-end offcanvas-large" tabindex="-1" id="offcanvas_pipeline">
+    <div class="offcanvas-header border-bottom">
+        <h4>Add New Pipeline</h4>
+        <button type="button"
+            class="btn-close custom-btn-close border p-1 me-0 d-flex align-items-center justify-content-center rounded-circle"
+            data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="ti ti-x"></i>
+        </button>
+    </div>
+    <div class="offcanvas-body">
+        <form action="deals">
+            <div>
+                <div class="mb-3">
+                    <label class="col-form-label">Pipeline Name <span class="text-danger">*</span></label>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="mb-3">
+                    <div class="pipe-title d-flex align-items-center justify-content-between">
+                        <h5 class="form-title">Pipeline Stages</h5>
+                        <a href="#" class="add-stage" data-bs-toggle="modal" data-bs-target="#add_stage"><i
+                                class="ti ti-square-rounded-plus"></i>Add New</a>
+                    </div>
+                    <div class="pipeline-listing">
+                        <div class="pipeline-item">
+                            <p><i class="ti ti-grip-vertical"></i> Inpipeline</p>
+                            <div class="action-pipeline">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#edit_stage"><i
+                                        class="ti ti-edit text-blue"></i>Edit</a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#delete_stage"><i
+                                        class="ti ti-trash text-danger"></i>Delete</a>
+                            </div>
+                        </div>
+                        <div class="pipeline-item">
+                            <p><i class="ti ti-grip-vertical"></i> Follow Up</p>
+                            <div class="action-pipeline">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#edit_stage"><i
+                                        class="ti ti-edit text-blue"></i>Edit</a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#delete_stage"><i
+                                        class="ti ti-trash text-danger"></i>Delete</a>
+                            </div>
+                        </div>
+                        <div class="pipeline-item">
+                            <p><i class="ti ti-grip-vertical"></i> Schedule Service</p>
+                            <div class="action-pipeline">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#edit_stage"><i
+                                        class="ti ti-edit text-blue"></i>Edit</a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#delete_stage"><i
+                                        class="ti ti-trash text-danger"></i>Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <h5 class="form-title">Access</h5>
+                    <div class="d-flex flex-wrap access-item nav">
+                        <div class="radio-btn" data-bs-toggle="tab" data-bs-target="#all">
+                            <input type="radio" class="status-radio" id="all" name="status" checked="">
+                            <label for="all">All</label>
+                        </div>
+                        <div class="radio-btn" data-bs-toggle="tab" data-bs-target="#select-person">
+                            <input type="radio" class="status-radio" id="select" name="status">
+                            <label for="select">Select Person</label>
+                        </div>
+                    </div>
+                    <div class="tab-content mb-3">
+                        <div class="tab-pane fade" id="select-person">
+                            <div class="access-wrapper">
+                                <div class="access-view">
+                                    <div class="access-img">
+                                        <img src="{% static 'assets/img/profiles/avatar-21.jpg' %}" alt="Image">Vaughan
+                                    </div>
+                                    <a href="#">Remove</a>
+                                </div>
+                                <div class="access-view">
+                                    <div class="access-img">
+                                        <img src="{% static 'assets/img/profiles/avatar-01.jpg' %}" alt="Image">Jessica
+                                    </div>
+                                    <a href="#">Remove</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-end">
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-light me-2">Cancel</button>
+                <button type="button" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<!-- /Add New Pipeline -->
+
+<!-- Delete Stage -->
+<div class="modal fade" id="delete_stage" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="text-center">
+                    <div class="avatar avatar-xl bg-danger-light rounded-circle mb-3">
+                        <i class="ti ti-trash-x fs-36 text-danger"></i>
+                    </div>
+                    <h4 class="mb-2">Remove Stage?</h4>
+                    <p class="mb-0">Are you sure you want to remove <br> stage you selected.</p>
+                    <div class="d-flex align-items-center justify-content-center mt-4">
+                        <a href="#" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+                        <a href="{% url 'deals' %}" class="btn btn-danger">Yes, Delete it</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Stage -->
+
+<!-- Add New Stage -->
+<div class="modal custom-modal fade" id="add_stage" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Stage</h5>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ti ti-x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="deals">
+                    <div class="mb-3">
+                        <label class="col-form-label">Stage Name *</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="modal-btn text-end">
+                        <a href="#" class="btn btn-light" data-bs-dismiss="modal">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Add New Stage -->
+
+<!-- Edit Stage -->
+<div class="modal custom-modal fade" id="edit_stage" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Stage</h5>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ti ti-x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="deals">
+                    <div class="mb-3">
+                        <label class="col-form-label">Stage Name *</label>
+                        <input type="text" class="form-control" value="Inpipeline">
+                    </div>
+                    <div class="modal-btn text-end">
+                        <a href="#" class="btn btn-light" data-bs-dismiss="modal">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Edit Stage -->
+
+<!-- Add New View -->
+<div class="modal custom-modal fade" id="save_view" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New View</h5>
+                <button class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="ti ti-x"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="deals">
+                    <div class="mb-3">
+                        <label class="col-form-label">View Name</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="modal-btn text-end">
+                        <a href="#" class="btn btn-light" data-bs-dismiss="modal">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Add New View -->
