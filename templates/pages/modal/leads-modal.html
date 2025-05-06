@@ -11,181 +11,165 @@
         </button>
     </div>
     <div class="offcanvas-body">
-        <form action="contacts">
+        <form method="POST" action="{% url 'post_leads' %}">
+            {% csrf_token %}
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="mb-3">
                         <label class="col-form-label">Lead Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="mb-3">
-                        <div class="radio-wrap">
-                            <label class="col-form-label">Lead Type</label>
-                            <div class="d-flex flex-wrap">
-                                <div class="me-2">
-                                    <input type="radio" class="status-radio" id="person" name="leave" checked>
-                                    <label for="person">Person</label>
-                                </div>
-                                <div>
-                                    <input type="radio" class="status-radio" id="Organization" name="leave">
-                                    <label for="Organization">Organization</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-md-12">
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <label class="col-form-label">Company Name</label>
-                            <a href="" class="label-add " data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas_add_2">
-                                <i class="ti ti-square-rounded-plus"></i>
-                                Add New
-                            </a>
-                        </div>
-                        <select class="select">
-                            <option>Choose</option>
-                            <option>NovaWave LLC</option>
-                            <option>Silver Hawk</option>
-                            <option>Summit Peak</option>
-                            <option>RiverStone Ventur</option>
-                            <option>Insurance</option>
-                        </select>
+                        <input type="text" class="form-control" name="lead_name" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label class="col-form-label">Value<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control">
+                        <label class="col-form-label">Lead Type <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="lead_type" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Value <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" name="value" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="col-form-label">Currency <span class="text-danger">*</span></label>
-                        <select class="select">
-                            <option>Select</option>
-                            <option>$</option>
-                            <option>€</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="row align-items-end">
-                        <div class="col-md-8">
-                            <div class="mb-3">
-                                <label class="col-form-label">Phone<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3 d-flex align-items-center mt-4">
-                                <select class="select2">
-                                    <option>Choose</option>
-                                    <option>Work</option>
-                                    <option>Home</option>
-                                </select>
-                            </div>
-                        </div>
+                        <input type="text" class="form-control" name="currency" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="col-form-label">Source <span class="text-danger">*</span></label>
-                        <select class="select">
-                            <option>Choose</option>
-                            <option>Phone calls</option>
-                            <option>Social Media</option>
-                            <option>Referral sites</option>
-                            <option>Web Analytics</option>
-                            <option>Previous Purchase</option>
-                        </select>
+                        <input type="text" class="form-control" name="source">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="col-form-label">Industry <span class="text-danger">*</span></label>
-                        <select class="select">
-                            <option>Choose</option>
-                            <option>Retail Industry</option>
-                            <option>Banking</option>
-                            <option>Hotels</option>
-                            <option>Financial Services</option>
-                            <option>Insurance</option>
-                        </select>
+                        <input type="text" class="form-control" name="industry">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="mb-3">
-                        <label class="col-form-label">Owner</label>
-                        <select class="select-img">
-                            <option data-image="{% static 'assets/img/profiles/avatar-14.jpg' %}" selected>Jerald</option>
-                            <option data-image="{% static 'assets/img/profiles/avatar-15.jpg' %}">Guillory</option>
-                            <option data-image="{% static 'assets/img/profiles/avatar-16.jpg' %}">Jami</option>
-                            <option data-image="{% static 'assets/img/profiles/avatar-13.jpg' %}">Theresa</option>
-                            <option data-image="{% static 'assets/img/profiles/avatar-24.jpg' %}">Espinosa</option>
-                        </select>
+                        <label class="col-form-label">Tags <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="tags">
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="mb-3">
-                        <label class="col-form-label">Tags </label>
-                        <input class="input-tags form-control" type="text" data-role="tagsinput" name="Label"
-                            value="Rated">
-                    </div>
-                </div>
-                <div class="col-md-12">
                     <div class="mb-3">
                         <label class="col-form-label">Description <span class="text-danger">*</span></label>
-                        <textarea class="form-control" rows="5"></textarea>
+                        <input type="text" class="form-control" name="description">
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="mb-3">
-                        <label class="col-form-label">Visibility</label>
-                        <div class="d-flex flex-wrap">
-                            <div class="me-2">
-                                <input type="radio" class="status-radio" id="public" name="visible">
-                                <label for="public">Public</label>
-                            </div>
-                            <div class="me-2">
-                                <input type="radio" class="status-radio" id="private" name="visible">
-                                <label for="private">Private</label>
-                            </div>
-                            <div data-bs-toggle="modal" data-bs-target="#access_view">
-                                <input type="radio" class="status-radio" id="people" name="visible">
-                                <label for="people">Select People</label>
-                            </div>
-                        </div>
+                        <label class="col-form-label">Visibility <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="visibility">
                     </div>
-                    <div class="mb-0">
-                        <label class="col-form-label">Status</label>
-                        <div class="d-flex flex-wrap">
-                            <div class="me-2">
-                                <input type="radio" class="status-radio" id="active" name="status" checked="">
-                                <label for="active">Active</label>
-                            </div>
-                            <div>
-                                <input type="radio" class="status-radio" id="inactive" name="status">
-                                <label for="inactive">Inactive</label>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="form-check form-check-md d-flex align-items-center">
+                        <input class="form-check-input" type="checkbox" name="status" id="checkebox-md" checked />
+                        <label class="form-check-label" for="checkebox-md">is Active</label>
                     </div>
                 </div>
             </div>
             <div class="d-flex align-items-center justify-content-end">
                 <button type="button" data-bs-dismiss="offcanvas" class="btn btn-light me-2">Cancel</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
                     data-bs-target="#create_success">Create</button>
             </div>
         </form>
     </div>
-
 </div>
 <!-- /Add Lead -->
+
+<!-- Edit Lead -->
+<div class="offcanvas offcanvas-end offcanvas-large" tabindex="-1" id="offcanvas_edit">
+    <div class="offcanvas-header border-bottom">
+        <h5 class="fw-semibold">Edit Lead</h5>
+        <button type="button"
+            class="btn-close custom-btn-close border p-1 me-0 d-flex align-items-center justify-content-center rounded-circle"
+            data-bs-dismiss="offcanvas" aria-label="Close">
+            <i class="ti ti-x"></i>
+        </button>
+    </div>
+    <div class="offcanvas-body">
+        <form method="POST" action="{% url 'post_leads' %}">
+            {% csrf_token %}
+            <p id="response"</p>
+            <input type="hidden" name="lead_id" id="edit_lead_id">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Lead Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="lead_name" id="edit_lead_name" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Lead Type <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="lead_type" id="edit_lead_type" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Value <span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" name="value" id="edit_value" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Currency <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="currency" id="edit_currency" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Source <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="source" id="edit_source">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Industry <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="industry" id="edit_industry">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Tags <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="tags" id="edit_tags">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Description <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="description" id="edit_description">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="col-form-label">Visibility <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="visibility" id="edit_visibility">
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="form-check form-check-md d-flex align-items-center">
+                        <input class="form-check-input" type="checkbox" name="status" id="edit_status" checked />
+                        <label class="form-check-label" for="edit_status">is Active</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-end">
+                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-light me-2">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- /Edit Lead -->
 
 <!-- Add Company -->
 <div class="offcanvas offcanvas-end offcanvas-large" tabindex="-1" id="offcanvas_add_2">
@@ -410,7 +394,7 @@
                 <!-- /Basic Info -->
 
                 <!-- Address Info -->
-                <div class="accordion-item border-top rounded mb-3">
+                <!-- <div class="accordion-item border-top rounded mb-3">
                     <div class="accordion-header">
                         <a href="#"
                             class="accordion-button accordion-custom-button rounded bg-white fw-medium text-dark"
@@ -463,11 +447,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- /Address Info -->
 
                 <!-- Social Profile -->
-                <div class="accordion-item border-top rounded mb-3">
+                <!-- <div class="accordion-item border-top rounded mb-3">
                     <div class="accordion-header">
                         <a href="#"
                             class="accordion-button accordion-custom-button rounded bg-white fw-medium text-dark"
@@ -519,11 +503,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- /Social Profile -->
 
                 <!-- Access -->
-                <div class="accordion-item border-top rounded mb-3">
+                <!-- <div class="accordion-item border-top rounded mb-3">
                     <div class="accordion-header">
                         <a href="#"
                             class="accordion-button accordion-custom-button rounded bg-white fw-medium text-dark"
@@ -576,7 +560,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- /Access -->
             </div>
             <div class="d-flex align-items-center justify-content-end">
@@ -588,192 +572,6 @@
     </div>
 </div>
 <!-- /Add Company -->
-
-<!-- Edit Lead -->
-<div class="offcanvas offcanvas-end offcanvas-large" tabindex="-1" id="offcanvas_edit">
-    <div class="offcanvas-header border-bottom">
-        <h5 class="fw-semibold">Edit Lead</h5>
-        <button type="button"
-            class="btn-close custom-btn-close border p-1 me-0 d-flex align-items-center justify-content-center rounded-circle"
-            data-bs-dismiss="offcanvas" aria-label="Close">
-            <i class="ti ti-x"></i>
-        </button>
-    </div>
-    <div class="offcanvas-body">
-        <form action="contacts">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="mb-3">
-                        <label class="col-form-label">Lead Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" value="Collins">
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="mb-3">
-                        <div class="radio-wrap">
-                            <label class="col-form-label">Lead Type</label>
-                            <div class="d-flex flex-wrap">
-                                <div class="me-2">
-                                    <input type="radio" class="status-radio" id="person" name="leave" checked>
-                                    <label for="person">Person</label>
-                                </div>
-                                <div>
-                                    <input type="radio" class="status-radio" id="Organization" name="leave">
-                                    <label for="Organization">Organization</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-md-12">
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <label class="col-form-label">Company Name</label>
-                            <a href="" class="label-add " data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvas_add_2">
-                                <i class="ti ti-square-rounded-plus"></i>
-                                Add New
-                            </a>
-                        </div>
-                        <select class="select">
-                            <option>Choose</option>
-                            <option selected>NovaWave LLC</option>
-                            <option>Silver Hawk</option>
-                            <option>Summit Peak</option>
-                            <option>RiverStone Ventur</option>
-                            <option>Insurance</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label class="col-form-label">Value<span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" value="10">
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label class="col-form-label">Currency <span class="text-danger">*</span></label>
-                        <select class="select">
-                            <option>Select</option>
-                            <option selected>$</option>
-                            <option>€</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="row align-items-end">
-                        <div class="col-md-8">
-                            <div class="mb-3">
-                                <label class="col-form-label">Phone<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="+1 875455453">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mb-3  d-flex align-items-center mt-4">
-                                <select class="select2">
-                                    <option>Choose</option>
-                                    <option selected>Work</option>
-                                    <option>Home</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label class="col-form-label">Source <span class="text-danger">*</span></label>
-                        <select class="select">
-                            <option>Choose</option>
-                            <option selected>Phone calls</option>
-                            <option>Social Media</option>
-                            <option>Referral sites</option>
-                            <option>Web Analytics</option>
-                            <option>Previous Purchase</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label class="col-form-label">Industry <span class="text-danger">*</span></label>
-                        <select class="select">
-                            <option>Choose</option>
-                            <option>Retail Industry</option>
-                            <option selected>Banking</option>
-                            <option>Hotels</option>
-                            <option>Financial Services</option>
-                            <option>Insurance</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label class="col-form-label">Owner</label>
-                        <select class="select-img">
-                            <option data-image="{% static 'assets/img/profiles/avatar-14.jpg' %}" selected>Jerald</option>
-                            <option data-image="{% static 'assets/img/profiles/avatar-15.jpg' %}">Guillory</option>
-                            <option data-image="{% static 'assets/img/profiles/avatar-16.jpg' %}">Jami</option>
-                            <option data-image="{% static 'assets/img/profiles/avatar-13.jpg' %}">Theresa</option>
-                            <option data-image="{% static 'assets/img/profiles/avatar-24.jpg' %}">Espinosa</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label class="col-form-label">Tags </label>
-                        <input class="input-tags form-control" type="text" data-role="tagsinput" name="Label"
-                            value="Rated">
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="mb-3">
-                        <label class="col-form-label">Description <span class="text-danger">*</span></label>
-                        <textarea class="form-control" rows="5"></textarea>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="mb-3">
-                        <label class="col-form-label">Visibility</label>
-                        <div class="d-flex flex-wrap">
-                            <div class="me-2">
-                                <input type="radio" class="status-radio" id="public" name="visible">
-                                <label for="public">Public</label>
-                            </div>
-                            <div class="me-2">
-                                <input type="radio" class="status-radio" id="private" name="visible">
-                                <label for="private">Private</label>
-                            </div>
-                            <div data-bs-toggle="modal" data-bs-target="#access_view">
-                                <input type="radio" class="status-radio" id="people" name="visible">
-                                <label for="people">Select People</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-0">
-                        <label class="col-form-label">Status</label>
-                        <div class="d-flex flex-wrap">
-                            <div class="me-2">
-                                <input type="radio" class="status-radio" id="active" name="status" checked="">
-                                <label for="active">Active</label>
-                            </div>
-                            <div>
-                                <input type="radio" class="status-radio" id="inactive" name="status">
-                                <label for="inactive">Inactive</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex align-items-center justify-content-end">
-                <button type="button" data-bs-dismiss="offcanvas" class="btn btn-light me-2">Cancel</button>
-                <button type="button" class="btn btn-primary">Save Changes</button>
-            </div>
-        </form>
-    </div>
-
-</div>
-<!-- /Edit Lead -->
 
 <!-- Delete Lead -->
 <div class="modal fade" id="delete_lead" role="dialog">

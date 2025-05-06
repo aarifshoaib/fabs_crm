@@ -228,7 +228,7 @@ urlpatterns = [
 
     #   CRM
 
-
+    ###########   Contacts     ########### 
     path('contacts', components_views.post_contact, name='contacts'),
     path('get_contact/<int:contact_id>/', components_views.get_contact, name='get_contact'),
     path('delete_contact/<int:contact_id>/', components_views.delete_contact, name='delete_contact'),
@@ -240,7 +240,7 @@ urlpatterns = [
     path('companies-grid', app_views.companies_grid, name='companies_grid'),
     path('company-details', app_views.company_details, name='company_details'),
     
-    
+    ###########   Deals     ########### 
     path('deals', components_views.post_deals,name='deals'),
     path('get_deals/<int:deal_id>/', components_views.get_deals, name='get_deals'),
     path('delete_deals/<int:deal_id>/', components_views.delete_deals, name='delete_deals'),
@@ -248,7 +248,14 @@ urlpatterns = [
     
     path('deals-kanban', app_views.deals_kanban, name='deals_kanban'),
     path('deals-details', app_views.deals_details, name='deals_details'),
-    path('leads', app_views.leads, name='leads'),
+    
+    
+    ###########   Leals     ########### 
+   path('leads/', components_views.leads, name='leads'),
+    path('leads/post/', components_views.post_leads, name='post_leads'),
+    path('get_lead', components_views.get_lead, name='get_lead'),
+    path('leads/delete/<int:lead_id>/', components_views.delete_lead, name='delete_lead'),
+    
     path('leads-kanban', app_views.leads_kanban, name='leads_kanban'),
     path('leads-details', app_views.leads_details, name='leads_details'),
     path('pipeline', app_views.pipeline, name='pipeline'),

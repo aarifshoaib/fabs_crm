@@ -559,7 +559,7 @@
                                                         <i class="fa fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_edit" href="#">
+                                                        <a class="dropdown-item edit-lead" href="#" data-lead-id="{{record.lead_id}}">
                                                             <i class="ti ti-edit text-blue"></i> Edit
                                                         </a>
                                                         <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_lead">
@@ -595,6 +595,89 @@
         </div>
     </div>
     <!-- /Page Wrapper -->
+
+
+<!--  Get and populate lead data -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Debug: Log when document is ready
+        console.log('Document ready');
+        
+        // Debug: Log all edit buttons found
+        console.log('Edit buttons found:', $('.edit-lead').length);
+        
+        // Debug: Log the URL being used
+        console.log('Edit URL:', "{% url 'get_lead' %}");
+        
+        $('.edit-lead').on('click', function(e) {
+            e.preventDefault(); // Prevent any default action
+            console.log('Edit button clicked');
+            
+            var leadId = $(this).data('lead-id');
+            console.log('Lead ID to fetch:', leadId);
+            
+            if (!leadId) {
+                console.error('No lead ID found on the edit button');
+                return;
+            }
+            
+            $.ajax({
+                url: "{% url 'get_lead' %}",
+                type: "GET",
+                data: {
+                    lead_id: leadId
+                },
+                beforeSend: function() {
+                    console.log('Sending AJAX request...');
+                },
+                success: function(response) {
+                    console.log('AJAX Success - Response:', response);
+                    
+                    if (!response) {
+                        console.error('Empty response received');
+                        return;
+                    }
+                    
+                    try {
+                        // Set all form fields
+                        $('#edit_lead_id').val(response.lead_data.lead_id);
+                        $('#edit_lead_name').val(response.lead_data.lead_name);
+                        $('#edit_lead_type').val(response.lead_data.lead_type);
+                        $('#edit_value').val(response.lead_data.value);
+                        $('#edit_currency').val(response.lead_data.currency);
+                        $('#edit_source').val(response.lead_data.source);
+                        $('#edit_industry').val(response.lead_data.industry);
+                        $('#edit_tags').val(response.lead_data.tags);
+                        $('#edit_description').val(response.lead_data.description);
+                        $('#edit_visibility').val(response.lead_data.visibility);
+                        
+                        // Handle status checkbox
+                        if (response.lead_data.status === 'Y') {
+                            $('#edit_status').prop('checked', true);
+                        } else {
+                            $('#edit_status').prop('checked', false);
+                        }
+                        
+                        // Show the edit form
+                        var editCanvas = new bootstrap.Offcanvas(document.getElementById('offcanvas_edit'));
+                        editCanvas.show();
+                        
+                        console.log('Form populated successfully');
+                    } catch (error) {
+                        console.error('Error populating form:', error);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', error);
+                    console.error('Status:', status);
+                    console.error('Response:', xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
 
 {% block leads_modal %}
 {% include "pages/modal/leads-modal.html" %}

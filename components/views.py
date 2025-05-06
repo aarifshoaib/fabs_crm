@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Contacts
 from .models import Deals
+from .models import Leads
 from django.http import JsonResponse
+from django.core.exceptions import ValidationError
+from django.contrib import messages
+from datetime import datetime
 
 
 ##### Contacts Table #####
@@ -82,9 +86,7 @@ def delete_contact(request, contact_id):
         return JsonResponse({"success": True, "message": "Contact has been deactivated."})
     except Contacts.DoesNotExist:
         return JsonResponse({"success": False, "error": "Contact not found."})
-
-
-
+    
 
 
 
@@ -191,6 +193,122 @@ def delete_deals(request, deal_id):
 
 
 
+##### Leals Table #####
+
+
+def leads(request):
+    try:
+        leads = Leads.objects.all()
+        return render(request, 'pages/crm/leads.html', {'leads': leads})
+    except Exception as e:
+        messages.error(request, f'Error fetching leads: {str(e)}')
+        return render(request, 'pages/crm/leads.html', {'leads': []})
+
+def post_leads(request):
+    if request.method == "POST":
+        try:
+            lead_id = request.POST.get('lead_id')
+            lead_name = request.POST.get('lead_name')
+            lead_type = request.POST.get('lead_type')
+            value = request.POST.get('value')
+            currency = request.POST.get('currency')
+            source = request.POST.get('source')
+            industry = request.POST.get('industry')
+            tags = request.POST.get('tags')
+            description = request.POST.get('description')
+            visibility = request.POST.get('visibility')
+            status = 'Y' if request.POST.get('status') else 'N'
+            
+            # Validation
+            if not lead_name:
+                raise ValidationError("Lead Name is required")
+            if not lead_type:
+                raise ValidationError("Lead Type is required")
+            if not value:
+                raise ValidationError("Value is required")
+            if not currency:
+                raise ValidationError("Currency is required")
+            
+            if lead_id:
+                lead = get_object_or_404(Leads, lead_id=lead_id)
+                lead.lead_name = lead_name
+                lead.lead_type = lead_type
+                lead.value = value
+                lead.currency = currency
+                lead.source = source
+                lead.industry = industry
+                lead.tags = tags
+                lead.description = description
+                lead.visibility = visibility
+                lead.status = status
+                lead.save()
+                messages.success(request, 'Lead updated successfully')
+            else:
+                Leads.objects.create(
+                    lead_name=lead_name,
+                    lead_type=lead_type,
+                    value=value,
+                    currency=currency,
+                    source=source,
+                    industry=industry,
+                    tags=tags,
+                    description=description,
+                    visibility=visibility,
+                    status=status
+                )
+                messages.success(request, 'Lead created successfully')
+            
+            return redirect('leads')
+            
+        except ValidationError as e:
+            messages.error(request, str(e))
+            return redirect('leads')
+        except Exception as e:
+            messages.error(request, f'An error occurred: {str(e)}')
+            return redirect('leads')
+    
+    return redirect('leads')
+
+def get_lead(request):
+    if request.method == "GET":
+        lead_id = request.GET.get('lead_id')
+       
+        try:
+            lead = get_object_or_404(Leads, lead_id=lead_id)
+           
+            lead_data = {
+                'lead_id': lead.lead_id,
+                'lead_name': lead.lead_name,
+                'lead_type': lead.lead_type,
+                'value': str(lead.value),
+                'currency': lead.currency,
+                'source': lead.source,
+                'industry': lead.industry,
+                'tags': lead.tags,
+                'description': lead.description,
+                'visibility': lead.visibility,
+                'status': lead.status
+            }
+           
+            return JsonResponse({'success': True, 'lead_data': lead_data})
+        except Leads.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Lead not found'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+
+def delete_lead(request, lead_id):
+    try:
+        lead = get_object_or_404(Leads, lead_id=lead_id)
+        lead.status = 'N'
+        lead.save()
+        messages.success(request, 'Lead deactivated successfully')
+        return redirect('leads')
+    except Leads.DoesNotExist:
+        messages.error(request, 'Lead not found')
+        return redirect('leads')
+    except Exception as e:
+        messages.error(request, f'An error occurred: {str(e)}')
+        return redirect('leads')
 
 
 
